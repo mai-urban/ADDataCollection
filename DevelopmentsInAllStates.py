@@ -6,15 +6,19 @@ from datetime import datetime
 # API endpoint
 url = "https://api.apartmentdevelopments.com.au/developments/bundled"
 
-# States to fetch data for
-states = ["victoria", "new-south-wales"]
+# States to fetch data
+states = ["victoria", "new-south-wales", "queensland", "australian-capital-territory"]
+# States and corresponding postal codes
+postal_codes = {
+    "victoria": "3000",
+    "new-south-wales": "2000",
+    "queensland": "4000",
+    "australian-capital-territory": "2600",
+}
 
 # Source site and date
 source = "a-d"
 date = datetime.today().strftime('%Y-%m-%d')
-
-# Define the CSV file name
-csv_file = f"{date}_{source}_ProjectListings.csv"
 
 # List to store all results
 all_results = []
@@ -22,7 +26,7 @@ all_results = []
 # Loop through each state
 for state in states:
     page = 1
-    print(f"Fetching data for state: {state}")
+    print(f"State: {state}")
     while True:
         # Parameters for the API request
         params = {
@@ -38,7 +42,7 @@ for state in states:
             "stateSearch": "true",
             "radius": 120000,
             "state": state,
-            "postalCode": "2000" if state == "new-south-wales" else "3000"
+            "postalCode": postal_codes.get(state, "0000")
         }
 
         # Headers for the API request
@@ -63,7 +67,6 @@ for state in states:
 
                 # Stop if no more data is returned
                 if not developments:
-                    print(f"No more developments found for {state}.")
                     break
 
                 for development in developments:
@@ -102,7 +105,11 @@ for state in states:
             print(response.text)
             break
 
-# Save all results to a single CSV file
+
+# Define the CSV file name
+csv_file = f"{date}_{source}_ProjectListings.csv"
+
+# Save all results to a CSV file
 with open(csv_file, "w", newline="", encoding="utf-8") as csvfile:
     fieldnames = ["Address", "Suburb", "State", "PostCode", "Date Scraped", "Source Site", "Url", "Name"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
