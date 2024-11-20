@@ -9,6 +9,7 @@ url = "https://api.apartmentdevelopments.com.au/developments/bundled"
 
 # States to fetch data
 states = ["victoria", "new-south-wales", "queensland", "australian-capital-territory"]
+
 # States and corresponding postal codes
 postal_codes = {
     "victoria": "3000",
