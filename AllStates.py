@@ -19,7 +19,7 @@ postal_codes = {
 }
 
 # Source site and date
-source = "a-d"
+source = "A-D"
 date = datetime.today().strftime('%Y-%m-%d')
 
 # List to store all results
