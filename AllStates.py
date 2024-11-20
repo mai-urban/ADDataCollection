@@ -1,6 +1,7 @@
 import requests
 import json
 import csv
+import os
 from datetime import datetime
 
 # API endpoint
@@ -106,8 +107,11 @@ for state in states:
             break
 
 
-# Define the CSV file name
-csv_file = f"{date}_{source}_ProjectListings.csv"
+# Get the Desktop directory for the current user
+desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+
+# Define the CSV file name with the full path to the Desktop
+csv_file = os.path.join(desktop_path, f"{date}_{source}_ProjectListings.csv")
 
 # Save all results to a CSV file
 with open(csv_file, "w", newline="", encoding="utf-8") as csvfile:
