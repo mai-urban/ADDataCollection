@@ -40,7 +40,6 @@ all_results = []
 # Loop through each state
 for state in states:
     page = 1
-    print(f"State: {state}")
     while True:
         # Parameters for the API request
         params = {
@@ -105,8 +104,8 @@ for state in states:
                         "PostCode": postal_code,
                         "Date Scraped": date,
                         "Source Site": source,
-                        "Url": "https://a-d.com.au" + dev_url,
-                        "Name": title
+                        "Name": title,
+                        "Url": "https://a-d.com.au" + dev_url
                     })
 
                 print(f"State: {state}, Page {page} processed with {len(developments)} records.")
@@ -131,7 +130,7 @@ csv_file = os.path.join(desktop_path, f"{date}_{source}_ProjectListings.csv")
 
 # Save all results to a CSV file
 with open(csv_file, "w", newline="", encoding="utf-8") as csvfile:
-    fieldnames = ["Address", "Suburb", "State", "PostCode", "Date Scraped", "Source Site", "Url", "Name"]
+    fieldnames = ["Address", "Suburb", "State", "PostCode", "Date Scraped", "Source Site", "Name", "Url"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
     writer.writeheader()  # Write the header row
