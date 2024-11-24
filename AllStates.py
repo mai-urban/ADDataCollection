@@ -18,6 +18,18 @@ postal_codes = {
     "australian-capital-territory": "2600",
 }
 
+# State name to code mapping
+state_codes = {
+    "Victoria": "VIC",
+    "New South Wales": "NSW",
+    "Queensland": "QLD",
+    "Australian Capital Territory": "ACT",
+    "Western Australia": "WA",
+    "South Australia": "SA",
+    "Tasmania": "TAS",
+    "Northern Territory": "NT"
+}
+
 # Source site and date
 source = "A-D"
 date = datetime.today().strftime('%Y-%m-%d')
@@ -82,11 +94,14 @@ for state in states:
                     state_name = address.get("state", "")
                     postal_code = address.get("postalCode", "")
 
+                    # Convert state name to acronym
+                    state_code = state_codes.get(state_name, state_name)
+
                     # Append the extracted data as a dictionary
                     all_results.append({
                         "Address": full_thoroughfare,
                         "Suburb": area,
-                        "State": state_name,
+                        "State": state_code,
                         "PostCode": postal_code,
                         "Date Scraped": date,
                         "Source Site": source,
